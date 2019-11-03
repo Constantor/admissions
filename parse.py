@@ -50,7 +50,7 @@ class Parse:
 
 
 if __name__ == '__main__':
-	subjects = {'programing', 'mathematics'}
+	subjects = {'programming', 'mathematics'}
 	seasons = {'20172018', '20182019'}
 
 	file = open('contests.pickle', 'wb+')
