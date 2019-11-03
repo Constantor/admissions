@@ -30,7 +30,7 @@ class Parse:
 			contestants[i]['school'] = current[3]
 			contestants[i]['region'] = current[4]
 			contestants[i]['score'] = int(current[-2])
-			contestants[i]['type'] = current[-1]
+			contestants[i]['type'] = current[-1].capitalize()
 		return contestants
 
 	@staticmethod
@@ -50,17 +50,18 @@ class Parse:
 
 
 if __name__ == '__main__':
+	subjects = {'programing', 'mathematics'}
+	seasons = {'20172018', '20182019'}
+
 	file = open('contests.pickle', 'wb+')
-	result = {
-		'programming': {
-			'20182019': Parse.programming(open('unparsed/programming20182019.txt').read())
-		},
-		'mathematics': {
-			'20182019': Parse.mathematics(open('unparsed/mathematics20182019.txt').read())
-		},
-		'physics': {
-			'20182019': Parse.physics(open('unparsed/physics20182019.txt').read())
-		}
-	}
+	result = {}
+	for subject in subjects:
+		result[subject] = {}
+		for season in seasons:
+			if subject == 'programming':
+				result[subject][season] = Parse.programming(open('unparsed/programming' + season + '.txt').read())
+			elif subject == 'mathematics':
+				result[subject][season] = Parse.mathematics(open('unparsed/mathematics' + season + '.txt').read())
+
 	pickle.dump(result, file)
 	file.close()
