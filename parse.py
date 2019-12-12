@@ -34,34 +34,40 @@ class Parse:
 		return contestants
 
 	@staticmethod
-	def physics(raw):
+	def sociology(raw):
 		contestantsRaw = [line.strip().split('\t') for line in raw.strip().split('\n')]
 		contestants = [dict() for __ in range(len(contestantsRaw))]
 		for i, current in enumerate(contestantsRaw):
 			contestants[i]['place'] = int(current[0])
-			if current[1].count(' ') == 1:
-				current[1] += ' -'
-			contestants[i]['last_name'], contestants[i]['first_name'], contestants[i]['middle_name'] = current[1].split(' ')
-			contestants[i]['grade'] = 11
-			contestants[i]['school'] = current[2]
-			contestants[i]['type'] = current[3]
-			contestants[i]['region'] = 'Москва'
+			name = current[1].split(' ')
+			contestants[i]['last_name'] = name[0]
+			contestants[i]['first_name'], contestants[i]['middle_name'] = name[1][0], name[1][2]
+			contestants[i]['grade'] = int(current[2])
+			contestants[i]['school'] = None
+			contestants[i]['region'] = current[3]
+			contestants[i]['score'] = int(current[4])
+			contestants[i]['type'] = current[5]
 		return contestants
 
 	@staticmethod
-	def sociology(raw):
-		pass
-
-	@staticmethod
 	def history(raw):
-		pass
+		contestantsRaw = [line.strip().split('\t') for line in raw.strip().split('\n')]
+		contestants = [dict() for __ in range(len(contestantsRaw))]
+		for i, current in enumerate(contestantsRaw):
+			contestants[i]['place'] = int(current[0])
+			contestants[i]['last_name'], contestants[i]['first_name'], contestants[i]['middle_name'] = current[1].split(' ')
+			contestants[i]['grade'] = int(current[2])
+			contestants[i]['region'] = current[3]
+			contestants[i]['school'] = current[4]
+			contestants[i]['score'] = int(current[5])
+			contestants[i]['type'] = current[6]
+		return contestants
 
 
 if __name__ == '__main__':
-	subjects = {'programming', 'mathematics'}
-	seasons = {'20162017', '20172018', '20182019'}
+	subjects = {'programming', 'mathematics', 'sociology', 'history'}
+	seasons = {'20172018', '20182019'}
 
-	file = open('contests.pickle', 'wb+')
 	result = {}
 	for subject in subjects:
 		result[subject] = {}
@@ -69,7 +75,13 @@ if __name__ == '__main__':
 			if subject == 'programming':
 				result[subject][season] = Parse.programming(open('unparsed/programming' + season + '.txt').read())
 			elif subject == 'mathematics':
-				result[subject][season] = Parse.mathematics(open('unparsed/mathematics' + season + '.txt').read()) if not season == '20162017' else Parse.mathematics(open('unparsed/mathematics' + season + '.txt').read(), True)
+				result[subject][season] = Parse.mathematics(open('unparsed/mathematics' + season + '.txt').read(), season == '20162017')
+			if season == '20182019':
+				if subject == 'sociology':
+					result[subject][season] = Parse.sociology(open('unparsed/sociology' + season + '.txt').read())
+				elif subject == 'history':
+					result[subject][season] = Parse.history(open('unparsed/history' + season + '.txt').read())
 
+	file = open('contests.pickle', 'wb+')
 	pickle.dump(result, file)
 	file.close()
