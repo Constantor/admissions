@@ -4,7 +4,7 @@ students = set()
 
 for subject in contests.values():
 	for year, yearcontent in subject.items():
-		if year == '20162017':
+		if year == '20182019':
 			continue
 		for student in yearcontent:
 			students.add((student['last_name'], student['first_name'], student['middle_name']))

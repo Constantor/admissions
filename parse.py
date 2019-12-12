@@ -48,6 +48,14 @@ class Parse:
 			contestants[i]['region'] = 'Москва'
 		return contestants
 
+	@staticmethod
+	def sociology(raw):
+		pass
+
+	@staticmethod
+	def history(raw):
+		pass
+
 
 if __name__ == '__main__':
 	subjects = {'programming', 'mathematics'}
