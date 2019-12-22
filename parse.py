@@ -63,9 +63,22 @@ class Parse:
 			contestants[i]['type'] = current[6]
 		return contestants
 
+	@staticmethod
+	def russian(raw):
+		contestantsRaw = [line.strip().split('\t') for line in raw.strip().split('\n')]
+		contestants = [dict() for __ in range(len(contestantsRaw))]
+		for i, current in enumerate(contestantsRaw):
+			contestants[i]['place'] = int(current[0])
+			contestants[i]['last_name'], contestants[i]['first_name'], contestants[i]['middle_name'] = current[2].split(' ')
+			contestants[i]['region'] = current[3]
+			contestants[i]['region_code'] = current[4]
+			contestants[i]['grade'] = 11
+			contestants[i]['type'] = current[5]
+		return contestants
+
 
 if __name__ == '__main__':
-	subjects = {'programming', 'mathematics', 'sociology', 'history'}
+	subjects = {'programming', 'mathematics', 'russian', 'history'}
 	seasons = {'20172018', '20182019'}
 
 	result = {}
@@ -77,8 +90,8 @@ if __name__ == '__main__':
 			elif subject == 'mathematics':
 				result[subject][season] = Parse.mathematics(open('unparsed/mathematics' + season + '.txt').read(), season == '20162017')
 			if season == '20182019':
-				if subject == 'sociology':
-					result[subject][season] = Parse.sociology(open('unparsed/sociology' + season + '.txt').read())
+				if subject == 'russian':
+					result[subject][season] = Parse.russian(open('unparsed/russian' + season + '.txt').read())
 				elif subject == 'history':
 					result[subject][season] = Parse.history(open('unparsed/history' + season + '.txt').read())
 

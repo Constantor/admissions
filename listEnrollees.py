@@ -5,7 +5,7 @@ file = open('contests.pickle', 'rb')
 contests = pickle.load(file)
 file.close()
 
-subject = 'history'
+subject = 'russian'
 season = '20182019'
 
 for contestant in contests[subject][season]:
