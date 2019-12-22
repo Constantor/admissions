@@ -1,12 +1,13 @@
-from contests import contests
+import os
 
-students = set()
+from admission import admissions
 
-for subject in contests.values():
-	for year, yearcontent in subject.items():
-		if year == '20182019':
-			continue
-		for student in yearcontent:
-			students.add((student['last_name'], student['first_name'], student['middle_name']))
+subjects = ('mathematics', 'programming')
+seasons = ('20172018', '20182019')
 
-print(len(students))
+for season in seasons:
+	for subject in subjects:
+		for university in admissions[season][subject]:
+			for direction in admissions[season][subject][university]:
+				student = admissions[season][subject][university][direction].pop().replace(' ', '+')
+				os.system('chromium https://www.google.com/search?q=' + student + '+приказ+о+зачислении+' + university.replace(' ', '+') + '+' + direction.replace(' ', '+') + '+' + season[-4:])
