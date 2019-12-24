@@ -11,4 +11,4 @@ for subject in contests:
 			regions.add(contestant['region'])
 
 for region in regions:
-	print(region)
+	print('{\'' + region + '\'},')

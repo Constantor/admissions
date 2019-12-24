@@ -30,3 +30,8 @@ universities = {
 		'КФУ',
 	}
 }
+
+universityRegions = dict()
+for region in universities:
+	for university in universities[region]:
+		universityRegions[university] = region
