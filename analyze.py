@@ -20,6 +20,6 @@ for season in admissions:
 		for university in admissions[season][subject]:
 			got[regions[universityRegions[university]]] += 1
 
-sortedIds = sorted(list(range(nRegions)), key=lambda i: out[i], reverse=True)
-for i in range(nRegions):
-	print(aliases[sortedIds[i]].pop() + '\t' + str(out[sortedIds[i]]) + '\t' + str(got[sortedIds[i]]))
+#sortedIds = sorted(list(range(nRegions)), key=lambda i: out[i], reverse=True)
+#for i in range(nRegions):
+#	print(aliases[sortedIds[i]].pop() + '\t' + str(out[sortedIds[i]]) + '\t' + str(got[sortedIds[i]]))
