@@ -18,7 +18,7 @@ for subject in contests:
 for season in admissions:
 	for subject in admissions[season]:
 		for university in admissions[season][subject]:
-			got[regions[universityRegions[university]]] += 1
+			got[regions[universityRegions[university]]] += len(admissions[season][subject][university])
 
 sortedIds = sorted(list(range(nRegions)), key=lambda i: out[i], reverse=True)
 for i in range(nRegions):
