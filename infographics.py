@@ -36,9 +36,28 @@ file = open('regions.json')
 coordinates = json.load(file)
 file.close()
 
+empty = (238, 238, 238)
+weak = (166, 226, 46)
+powerful = (249, 38, 114)
+
 top = Tk()
 
-canvas = Canvas(top, bg='#ffffff', width=3700, height=2000)
+canvas = Canvas(top, bg='#ffffff', width=3750, height=2050)
+
+canvas.create_text(3600, 1950, fill='#000000', font='Courier 20', text='— 0    ')
+canvas.create_text(3600, 1800, fill='#000000', font='Courier 20', text='— 1-179')
+
+boxW = 175
+boxH = 75
+box0x = 3300
+box0y = 1915
+zeroBox = canvas.create_polygon([box0x, box0y, box0x + boxW, box0y, box0x + boxW, box0y + boxH, box0x, box0y + boxH], outline='#000000', fill=toHex(empty), width=2)
+boxW = 175
+boxH = 75
+box0x = 3300
+box0y = 1765
+rangeBoxL = canvas.create_polygon([box0x, box0y, box0x + boxW / 2, box0y, box0x + boxW / 2, box0y + boxH, box0x, box0y + boxH], outline='#000000', fill=toHex(weak), width=2)
+rangeBoxR = canvas.create_polygon([box0x + boxW / 2, box0y, box0x + boxW, box0y, box0x + boxW, box0y + boxH, box0x + boxW / 2, box0y + boxH], outline='#000000', fill=toHex(powerful), width=2)
 
 # lines = []
 polygons = []
@@ -62,9 +81,7 @@ for region in coordinates:
 	shift = -1
 	if region in regions:
 		shift = (out[regions[region]] - minOut) / (maxOut - minOut)
-	weak = (166, 226, 46)
-	powerful = (249, 38, 114)
-	toFill = '#eeeeee'
+	toFill = toHex(empty)
 	if shift != -1:
 		toFill = toHex([weak[i] + round(shift * (powerful[i] - weak[i])) for i in range(3)])
 	polygons.append(canvas.create_polygon(coords, outline='#000000', fill=toFill, width=2))
@@ -73,8 +90,8 @@ canvas.pack()
 canvas.update()
 
 filename = 'out'
-canvas.postscript(file = filename + '.ps')
-img = Image.open(filename + '.eps')
+canvas.postscript(file=filename + '.ps')
+img = Image.open(filename + '.ps')
 img.save(filename + '.png', 'png')
 
 top.mainloop()
