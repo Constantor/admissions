@@ -1,6 +1,7 @@
 import json
 from tkinter import *
 from math import pi, log, tan
+from PIL import Image
 
 from analyze import out, got
 from regions import regions
@@ -63,10 +64,17 @@ for region in coordinates:
 		shift = (out[regions[region]] - minOut) / (maxOut - minOut)
 	weak = (166, 226, 46)
 	powerful = (249, 38, 114)
-	toFill = '#f5f5f5'
+	toFill = '#eeeeee'
 	if shift != -1:
 		toFill = toHex([weak[i] + round(shift * (powerful[i] - weak[i])) for i in range(3)])
 	polygons.append(canvas.create_polygon(coords, outline='#000000', fill=toFill, width=2))
 
 canvas.pack()
+canvas.update()
+
+filename = 'out'
+canvas.postscript(file = filename + '.ps')
+img = Image.open(filename + '.eps')
+img.save(filename + '.png', 'png')
+
 top.mainloop()
