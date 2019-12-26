@@ -30,7 +30,7 @@ for season in admissions:
 sortedIds = sorted(list(range(nRegions)), key=lambda i: out[i], reverse=True)
 for i in range(nRegions):
 	print(aliases[sortedIds[i]].pop() + '\t' + str(out[sortedIds[i]]) + '\t' + str(got[sortedIds[i]]))
-
+print()
 sortedUniversities = sorted(list(universitiesCnt.keys()), key=lambda university: universitiesCnt[university], reverse=True)
 for university in sortedUniversities:
 	print(university + '\t' + str(universitiesCnt[university]))
