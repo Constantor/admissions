@@ -1,3 +1,4 @@
+from collections import Counter
 import pickle
 from admission import admissions
 from universities import universities, universityRegions
@@ -20,6 +21,16 @@ for season in admissions:
 		for university in admissions[season][subject]:
 			got[regions[universityRegions[university]]] += len(admissions[season][subject][university])
 
+universitiesCnt = Counter()
+for season in admissions:
+	for subject in admissions[season]:
+		for university in admissions[season][subject]:
+			universitiesCnt[university] += len(admissions[season][subject][university])
+
 sortedIds = sorted(list(range(nRegions)), key=lambda i: out[i], reverse=True)
-for i in range(nRegions):
-	print(aliases[sortedIds[i]].pop() + '\t' + str(out[sortedIds[i]]) + '\t' + str(got[sortedIds[i]]))
+#for i in range(nRegions):
+#	print(aliases[sortedIds[i]].pop() + '\t' + str(out[sortedIds[i]]) + '\t' + str(got[sortedIds[i]]))
+
+sortedUniversities = sorted(list(universitiesCnt.keys()), key=lambda university: universitiesCnt[university], reverse=True)
+for university in sortedUniversities:
+	print(university + '\t' + str(universitiesCnt[university]))
