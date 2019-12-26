@@ -8,7 +8,7 @@ regions = set()
 for subject in contests:
 	for season in contests[subject]:
 		for contestant in contests[subject][season]:
-			regions.add(contestant['region'])
+			regions.add(contestant['region'].lower())
 
 for region in regions:
-	print('{\'' + region + '\'},')
+	print('{\'' + region.lower() + '\'},')

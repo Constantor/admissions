@@ -31,7 +31,13 @@ universities = {
 	}
 }
 
+keys = list(universities.keys())
+for key in keys:
+	if key != key.lower():
+		universities[key.lower()] = universities[key]
+		universities.pop(key)
+
 universityRegions = dict()
 for region in universities:
-	for university in universities[region]:
-		universityRegions[university] = region
+	for university in universities[region.lower()]:
+		universityRegions[university] = region.lower()

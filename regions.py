@@ -63,6 +63,6 @@ aliases = [
 regions = dict()
 for i in range(len(aliases)):
 	for name in aliases[i]:
-		regions[name] = i
+		regions[name.lower()] = i
 
 nRegions = len(aliases)

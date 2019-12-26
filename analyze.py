@@ -14,12 +14,12 @@ got = [0] * nRegions
 for subject in contests:
 	for season in contests[subject]:
 		for contestant in contests[subject][season]:
-			out[regions[contestant['region']]] += 1
+			out[regions[contestant['region'].lower()]] += 1
 
 for season in admissions:
 	for subject in admissions[season]:
 		for university in admissions[season][subject]:
-			got[regions[universityRegions[university]]] += sum([len(admissions[season][subject][university][direction]) for direction in admissions[season][subject][university]])
+			got[regions[universityRegions[university].lower()]] += sum([len(admissions[season][subject][university][direction]) for direction in admissions[season][subject][university]])
 
 universitiesCnt = Counter()
 for season in admissions:
