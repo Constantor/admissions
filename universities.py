@@ -40,4 +40,4 @@ for key in keys:
 universityRegions = dict()
 for region in universities:
 	for university in universities[region.lower()]:
-		universityRegions[university] = region.lower()
+		universityRegions[university.lower()] = region.lower()
